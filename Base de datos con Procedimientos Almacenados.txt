@@ -1,0 +1,36 @@
+CREATE TABLE Personas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre CHAR(50) NOT NULL,
+    apellido CHAR(50) NOT NULL,
+    telefono CHAR(9) NOT NULL,
+    nacionalidad CHAR(30) NOT NULL,
+    genero CHAR(1) NOT NULL
+);
+
+USE prueba;
+delimiter //
+create procedure sp_GuardarPersona(
+    in _nom char(50),
+    in _ape char(50),
+    in _tel char(9),
+    in _nac char(30),
+    in _gen char(1)
+)
+begin
+    insert into personas (nombre, apellido, telefono, nacionalidad, genero)
+    values (_nom, _ape, _tel, _nac, _gen);
+end //
+
+create procedure sp_EditarPersona(
+	in _id int, in _nom char(50), in _ape char(50), in _tel char(9), in _nac char(30), in _gen char(1)
+)
+begin
+	update personas set nombre=_nom, apellido=_ape, telefono=_tel, nacionalidad=_nac, genero=_gen where id=_id;
+end //
+
+create procedure sp_EliminarPersona(in _id int)
+begin
+	delete from personas where id=_id;
+end//
+
+delimiter ;
